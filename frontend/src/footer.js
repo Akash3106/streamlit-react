@@ -8,7 +8,7 @@ class Footer extends Component {
     <div style={{background: "black" , color: "white"}}   className='text-center text-lg-start text-muted'>
     <section  className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom'>
         <div  style={{color: "white"}} className='me-5 d-none d-lg-block'>
-          <span>Social Media Handel</span>
+          <span>Social Media Handles</span>
         </div>
 
         <div>

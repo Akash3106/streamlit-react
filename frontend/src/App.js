@@ -7,19 +7,19 @@ import {
 import MyComponent from "./MyComponent"
 import Header from "./header"
 import Footer from "./footer"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
   
 class App extends StreamlitComponentBase {
     render() {
       return(
-        <div>
-          <Header />
-          <br style={{background : "black"}}/>
-          <MyComponent />
-          <br/>
-          <Footer />
-        </div>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Header/>} />
+              <Route path="/MidComponent" element={<MyComponent/>} />
+              <Route path="/foot" element={<Footer/>} />
+            </Routes>
+          </BrowserRouter>
       )
-  
     }
 }
 

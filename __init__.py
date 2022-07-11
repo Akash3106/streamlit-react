@@ -3,7 +3,9 @@ import streamlit.components.v1 as components
  
 _RELEASE = False
 if not _RELEASE:
-     _component_func = components.declare_component("my_component",url="http://localhost:3001")
+     _component_func = components.declare_component("my_component",url="http://localhost:3001/")
+     footer_func = components.declare_component("footer_component" , url="http://localhost:3001/foot")
+     midComp_func = components.declare_component("main_component" , url="http://localhost:3001/midcomponent")
 else:
      parent_dir = os.path.dirname(os.path.abspath(_file_))
      build_dir = os.path.join(parent_dir, "frontend/build")
@@ -13,14 +15,19 @@ else:
 def my_component(key=None):
      component_value = _component_func( key=key, default=0)
      return component_value
- 
+
+def footer_component(key=None):
+     component_value = footer_func(key=key, default=0)
+     return component_value
+
+def main_component():
+     component_value = midComp_func()
+     return component_value
+
  
 if not _RELEASE:
      import streamlit as st
      st.set_page_config(layout="wide")
-     # st.markdown("""---""")
-     my_component()
-     # st.markdown("""---""")
      st.markdown("""
          <style>
                 .css-18e3th9 {
@@ -42,3 +49,9 @@ if not _RELEASE:
  
          </style>
          """, unsafe_allow_html=True)
+
+     my_component()
+     main_component()
+     footer_component()
+
+     
