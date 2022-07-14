@@ -1,6 +1,9 @@
+import imp
 import os
 import streamlit.components.v1 as components
- 
+import snowflake.connector
+import json
+
 _RELEASE = False
 if not _RELEASE:
      _component_func = components.declare_component("my_component",url="http://localhost:3001/")
@@ -12,8 +15,8 @@ else:
      _component_func = components.declare_component("my_component", path=build_dir)
  
  
-def my_component(key=None):
-     component_value = _component_func( key=key, default=0)
+def my_component(jsonFile, key=None):
+     component_value = _component_func(jsonFile=jsonFile, key=key, default=0)
      return component_value
 
 def footer_component(key=None):
@@ -24,6 +27,35 @@ def main_component():
      component_value = midComp_func()
      return component_value
 
+def rbac_hirerchy():
+     
+     userName = "sf2022"
+     password = "SFPass@2022"
+     account =  "zi61047.ap-northeast-1.aws"
+     try:
+          ctx = snowflake.connector.connect(
+          user=userName,
+          password=password,
+          account=account,
+          database="ACCELERATOR_DB",
+          schema="RBAC",
+          role="accountadmin",
+          warehouse="COMPUTE_WH",
+          )
+          ctx.cursor()
+          # return one_row[0]
+          cs = ctx.cursor()
+          create_role_query = "call SP_RBAC_HIERARCHY();"
+          print(create_role_query)
+          cs.execute(create_role_query)
+          res = cs.fetchone()
+          # print(res)
+          res_ = json.loads(res[0])
+          print(res_)
+          # print(type(jsonify(res[0])))
+          return res_
+     except:
+          return {'success': False}
  
 if not _RELEASE:
      import streamlit as st
@@ -49,9 +81,11 @@ if not _RELEASE:
  
          </style>
          """, unsafe_allow_html=True)
-
-     my_component()
+     jsondata = rbac_hirerchy()
+     # st.write(jsondata)
+     my_component(jsondata,key='foo')
      main_component()
      footer_component()
+     
 
      

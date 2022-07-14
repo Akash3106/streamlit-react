@@ -1,9 +1,14 @@
   import React, { Component } from "react";
+import { StreamlitComponentBase, withStreamlitConnection } from "streamlit-component-lib";
   import caribou from "./caribou.png"
   
   
-  class Header extends Component {
+  class Header extends StreamlitComponentBase {
     render(){
+      const jsonFileData = this.props.args["jsonFile"];
+      var response = jsonFileData
+      console.log(response.response)
+
     return (
         <nav className="navbar navbar-expand-lg " style={{color: "white", backgroundColor : "black"}} >
           <div className="container-fluid">
@@ -30,4 +35,4 @@
   }
   }
   
-  export default Header;
+  export default withStreamlitConnection(Header);

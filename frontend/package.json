@@ -20,6 +20,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^16.13.1",
     "react-organizational-chart": "^2.1.1",
+    "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "3.4.1",
     "streamlit-component-lib": "^1.3.0"

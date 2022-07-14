@@ -1,0 +1,7 @@
+.swal_alert__box{
+    /* height:100px !important; */
+}
+
+.sidebar > ::-webkit-scrollbar {
+    display: none;
+}
