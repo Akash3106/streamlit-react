@@ -29,9 +29,9 @@ def main_component():
 
 def rbac_hirerchy():
      
-     userName = "sf2022"
-     password = "SFPass@2022"
-     account =  "zi61047.ap-northeast-1.aws"
+     userName = "****"
+     password = "****"
+     account =  "****"
      try:
           ctx = snowflake.connector.connect(
           user=userName,
