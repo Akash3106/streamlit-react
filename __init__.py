@@ -1,7 +1,6 @@
 import imp
 import os
 import streamlit.components.v1 as components
-import snowflake.connector
 import json
 
 _RELEASE = False
@@ -18,37 +17,6 @@ else:
 def my_component(jsonFile, key=None):
     component_value = _component_func(jsonFile=jsonFile, key=key, default=0)
     return component_value
-
-
-def rbac_hirerchy():
-
-    userName = "****"
-    password = "****"
-    account = "****"
-    try:
-        ctx = snowflake.connector.connect(
-            user=userName,
-            password=password,
-            account=account,
-            database="ACCELERATOR_DB",
-            schema="RBAC",
-            role="accountadmin",
-            warehouse="COMPUTE_WH",
-        )
-        ctx.cursor()
-        # return one_row[0]
-        cs = ctx.cursor()
-        create_role_query = "call SP_RBAC_HIERARCHY();"
-        print(create_role_query)
-        cs.execute(create_role_query)
-        res = cs.fetchone()
-        # print(res)
-        res_ = json.loads(res[0])
-        print(res_)
-        # print(type(jsonify(res[0])))
-        return res_
-    except:
-        return {"success": False}
 
 
 if not _RELEASE:
@@ -79,6 +47,4 @@ if not _RELEASE:
          """,
         unsafe_allow_html=True,
     )
-    jsondata = rbac_hirerchy()
-    # st.write(jsondata)
     my_component(jsondata, key="foo")
